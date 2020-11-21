@@ -37,7 +37,8 @@ python tools/ci/travis-install.py
 pip install cython
 
 # Install Python API in editable mode
-pip install -e .[test,vtk]
+#pip install -e .[test,vtk]
+python setup.py install
 
 # For coverage testing of the C++ source files
 pip install cpp-coveralls

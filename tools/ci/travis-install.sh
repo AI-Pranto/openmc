@@ -4,8 +4,8 @@ set -ex
 # Install conda packages
 conda install eigen fortran-compiler pthread-stubs
 conda install gxx_linux-64
-ln -s $HOME/miniconda/bin/x86_64-conda-cos6-linux-gnu-g++ $HOME/miniconda/bin/g++
-ln -s $HOME/miniconda/bin/x86_64-conda-cos6-linux-gnu-gcc $HOME/miniconda/bin/gcc
+ln -s $HOME/miniconda/envs/openmc/bin/x86_64-conda-cos6-linux-gnu-g++ $HOME/miniconda/envs/openmc/bin/g++
+ln -s $HOME/miniconda/envs/openmc/bin/x86_64-conda-cos6-linux-gnu-gcc $HOME/miniconda/envs/openmc/bin/gcc
 which gcc
 which g++
 

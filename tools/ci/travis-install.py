@@ -26,7 +26,7 @@ def install(omp=False, mpi=False, phdf5=False, dagmc=False):
     os.chdir('build')
 
     # Build in debug mode by default
-    cmake_cmd = ['CC=$HOME/miniconda/bin/gcc', 'CXX=$HOME/miniconda/bin/g++', 'cmake', '-Ddebug=on']
+    cmake_cmd = ['CC=/usr/bin/gcc', 'CXX=/usr/bin/g++', 'cmake', '-Ddebug=on']
 
     # Turn off OpenMP if specified
     if not omp:

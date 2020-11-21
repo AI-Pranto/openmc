@@ -5,6 +5,7 @@ set -ex
 conda install eigen fortran-compiler pthread-stubs
 conda install gxx_linux-64
 ln -s $HOME/miniconda/bin/x86_64-conda-cos6-linux-gnu-g++ $HOME/miniconda/bin/g++
+ln -s $HOME/miniconda/bin/x86_64-conda-cos6-linux-gnu-gcc $HOME/miniconda/bin/gcc
 
 if [[ $MPI = 'y' ]]; then
     conda install mpich mpi4py "h5py=*=*mpich*"

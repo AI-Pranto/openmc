@@ -2,7 +2,7 @@
 set -ex
 
 # Install conda packages
-conda install eigen fortran-compiler
+conda install eigen fortran-compiler pthread-stubs
 conda install gxx_linux-64
 ldconfig -p | grep pthread
 

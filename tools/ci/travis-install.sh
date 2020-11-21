@@ -3,7 +3,7 @@ set -ex
 
 # Install conda packages
 conda install eigen fortran-compiler pthread-stubs
-conda install gxx_linux-64
+conda remove gcc_linux-64
 
 which gcc
 which g++

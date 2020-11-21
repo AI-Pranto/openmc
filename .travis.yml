@@ -1,6 +1,6 @@
 
 sudo: required
-dist: bionic
+dist: xenial
 language: python
 services:
   - xvfb
@@ -11,6 +11,7 @@ cache:
 env:
   global:
     - MPI_DIR=/usr
+    - LDFLAGS="-L/lib64"
     - DAGMC_ROOT=$HOME/DAGMC
     - HDF5_ROOT=$HOME/miniconda/envs/openmc
     - OMP_NUM_THREADS=2

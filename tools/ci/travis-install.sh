@@ -3,10 +3,8 @@ set -ex
 
 # Install conda packages
 conda install eigen fortran-compiler pthread-stubs
-conda remove gcc_linux-64
-
-which gcc
-which g++
+conda install gxx_linux-64
+conda install cmake
 
 if [[ $MPI = 'y' ]]; then
     conda install mpich mpi4py "h5py=*=*mpich*"

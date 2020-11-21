@@ -4,7 +4,6 @@ set -ex
 # Install conda packages
 conda install eigen fortran-compiler
 conda install gxx_linux-64
-conda install libcxx
 ldconfig -p | grep pthread
 
 if [[ $MPI = 'y' ]]; then

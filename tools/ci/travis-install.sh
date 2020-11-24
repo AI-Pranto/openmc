@@ -2,15 +2,20 @@
 set -ex
 
 # Install conda packages
+source "$HOME/miniconda/etc/profile.d/conda.sh"
+conda activate openmc
 conda install eigen fortran-compiler pthread-stubs
+conda install pip
 conda install gxx_linux-64
-ldconfig -p | grep pthread
 
 if [[ $MPI = 'y' ]]; then
     conda install mpich mpi4py "h5py=*=*mpich*"
 else
     conda install h5py
 fi
+
+# Python dependencies
+conda install pip
 
 echo $PATH
 
@@ -35,8 +40,7 @@ python tools/ci/travis-install.py
 pip install cython
 
 # Install Python API in editable mode
-#pip install -e .[test,vtk]
-python setup.py install
+pip install -e .[test,vtk]
 
 # For coverage testing of the C++ source files
 pip install cpp-coveralls

@@ -409,7 +409,7 @@ void Nuclide::create_derived(
       for (int i = 0; i < n; ++i) {
         double E = grid_[t].energy[i];
         xs_[t](i, XS_NU_FISSION) =
-          nu(E, EmissionMode::total) * xs_[t](i, XS_FISSION);
+          nu(E, EmissionMode::prompt) * xs_[t](i, XS_FISSION);
       }
     }
   }
@@ -602,7 +602,7 @@ void Nuclide::calculate_xs(
     micro.absorption = sig_a;
     micro.fission = sig_f;
     micro.nu_fission =
-      fissionable_ ? sig_f * this->nu(p.E(), EmissionMode::total) : 0.0;
+      fissionable_ ? sig_f * this->nu(p.E(), EmissionMode::prompt) : 0.0;
 
     if (simulation::need_depletion_rx) {
       // Only non-zero reaction is (n,gamma)
@@ -953,7 +953,7 @@ void Nuclide::calculate_urr_xs(int i_temp, Particle& p) const
 
   // Determine nu-fission cross-section
   if (fissionable_) {
-    micro.nu_fission = nu(p.E(), EmissionMode::total) * micro.fission;
+    micro.nu_fission = nu(p.E(), EmissionMode::prompt) * micro.fission;
   }
 }
 

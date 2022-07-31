@@ -13,7 +13,9 @@ except ImportError:
 
 
 # Determine shared library suffix
-if sys.platform == 'darwin':
+if sys.platform == 'win32':
+    suffix = 'dll'
+elif sys.platform == 'darwin':
     suffix = 'dylib'
 else:
     suffix = 'so'

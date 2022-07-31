@@ -1,5 +1,10 @@
 #include <algorithm>
 #include <cmath>
+// The MinGW C++ compiler doesn't seem to pull cmath constants.
+// As a workaround, we define M_PI here if needed
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 #include <complex>
 #include <cstdlib>
 #include <limits>

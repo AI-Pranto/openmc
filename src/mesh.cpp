@@ -1,7 +1,12 @@
 #include "openmc/mesh.h"
 #include <algorithm> // for copy, equal, min, min_element
-#include <cmath>     // for ceil
-#include <cstddef>   // for size_t
+#include <cmath>   // for ceil
+// The MinGW C++ compiler doesn't seem to pull cmath constants.
+// As a workaround, we define M_PI here if needed
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+#include <cstddef> // for size_t
 #include <gsl/gsl-lite.hpp>
 #include <string>
 
@@ -2324,37 +2329,16 @@ const std::string LibMesh::mesh_lib_type = "libmesh";
 
 LibMesh::LibMesh(pugi::xml_node node) : UnstructuredMesh(node)
 {
-  // filename_ and length_multiplier_ will already be set by the UnstructuredMesh constructor
-  set_mesh_pointer_from_filename(filename_);
-  set_length_multiplier(length_multiplier_);
   initialize();
 }
 
-// create the mesh from a pointer to a libMesh Mesh
-LibMesh::LibMesh(libMesh::MeshBase & input_mesh, double length_multiplier)
-{
-  m_ = &input_mesh;
-  set_length_multiplier(length_multiplier);
-  initialize();
-}
-
-// create the mesh from an input file
 LibMesh::LibMesh(const std::string& filename, double length_multiplier)
 {
-  set_mesh_pointer_from_filename(filename);
+  filename_ = filename;
   set_length_multiplier(length_multiplier);
   initialize();
 }
 
-void LibMesh::set_mesh_pointer_from_filename(const std::string& filename)
-{
-  filename_ = filename;
-  unique_m_ = make_unique<libMesh::Mesh>(*settings::libmesh_comm, n_dimension_);
-  m_ = unique_m_.get();
-  m_->read(filename_);
-}
-
-// intialize from mesh file
 void LibMesh::initialize()
 {
   if (!settings::libmesh_comm) {
@@ -2365,14 +2349,14 @@ void LibMesh::initialize()
   // assuming that unstructured meshes used in OpenMC are 3D
   n_dimension_ = 3;
 
+  m_ = make_unique<libMesh::Mesh>(*settings::libmesh_comm, n_dimension_);
+  m_->read(filename_);
+
   if (specified_length_multiplier_) {
     libMesh::MeshTools::Modification::scale(*m_, length_multiplier_);
   }
-  // if OpenMC is managing the libMesh::MeshBase instance, prepare the mesh.
-  // Otherwise assume that it is prepared by its owning application
-  if (unique_m_) {
-    m_->prepare_for_use();
-  }
+
+  m_->prepare_for_use();
 
   // ensure that the loaded mesh is 3 dimensional
   if (m_->mesh_dimension() != n_dimension_) {

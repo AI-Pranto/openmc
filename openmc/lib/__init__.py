@@ -13,23 +13,29 @@ functions or objects in :mod:`openmc.lib`, for example:
 """
 
 from ctypes import CDLL, c_bool, c_int
+from ctypes.util import find_library
 import os
 import sys
 
 import pkg_resources
 
-
-# Determine shared-library suffix
-if sys.platform == 'darwin':
-    _suffix = 'dylib'
-else:
-    _suffix = 'so'
-
 if os.environ.get('READTHEDOCS', None) != 'True':
     # Open shared library
-    _filename = pkg_resources.resource_filename(
-        __name__, 'libopenmc.{}'.format(_suffix))
-    _dll = CDLL(_filename)
+    if  sys.platform == 'win32':
+        _lib = find_library('libopenmc')
+        try:
+            _dll = CDLL(_lib)
+        except FileNotFoundError:
+            # Python >= 3.8
+            os.add_dll_directory(os.path.dirname(_lib))
+    elif sys.platform == 'darwin':
+        _lib = find_library('openmc')
+        _dll = CDLL(_lib)
+    else:
+        _lib = find_library('openmc')
+        _filename = pkg_resources.resource_filename(
+            __name__, _lib)
+        _dll = CDLL(_filename)
 else:
     # For documentation builds, we don't actually have the shared library
     # available. Instead, we create a mock object so that when the modules

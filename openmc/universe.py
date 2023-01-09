@@ -164,7 +164,7 @@ class Universe(object):
 
         """
         universe_id = int(group.name.split('/')[-1].lstrip('universe '))
-        cell_ids = group['cells'].value
+        cell_ids = group['cells'][()]
 
         # Create this Universe
         universe = cls(universe_id)

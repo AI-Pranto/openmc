@@ -443,7 +443,7 @@ class StatePoint(object):
                         deriv.material = group['material'][()]
                     elif deriv.variable == 'nuclide_density':
                         deriv.material = group['material'][()]
-                        deriv.nuclide = group['nuclide'][()]e.decode()
+                        deriv.nuclide = group['nuclide'][()].decode()
                     elif deriv.variable == 'temperature':
                         deriv.material = group['material'][()]
                     self._derivs[d_id] = deriv

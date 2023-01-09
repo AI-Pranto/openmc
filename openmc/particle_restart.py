@@ -1,6 +1,6 @@
 import h5py
 
-import openmc.chec[()] as cv
+import openmc.checkvalue as cv
 
 _VERSION_PARTICLE_RESTART = 2
 

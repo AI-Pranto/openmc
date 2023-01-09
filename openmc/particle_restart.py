@@ -1,6 +1,6 @@
 import h5py
 
-import openmc.checkvalue as cv
+import openmc.chec[()] as cv
 
 _VERSION_PARTICLE_RESTART = 2
 
@@ -47,40 +47,40 @@ class Particle(object):
 
     @property
     def current_batch(self):
-        return self._f['current_batch'].value
+        return self._f['current_batch'][()]
 
     @property
     def current_generation(self):
-        return self._f['current_generation'].value
+        return self._f['current_generation'][()]
 
     @property
     def energy(self):
-        return self._f['energy'].value
+        return self._f['energy'][()]
 
     @property
     def generations_per_batch(self):
-        return self._f['generations_per_batch'].value
+        return self._f['generations_per_batch'][()]
 
     @property
     def id(self):
-        return self._f['id'].value
+        return self._f['id'][()]
 
     @property
     def n_particles(self):
-        return self._f['n_particles'].value
+        return self._f['n_particles'][()]
 
     @property
     def run_mode(self):
-        return self._f['run_mode'].value.decode()
+        return self._f['run_mode'][()].decode()
 
     @property
     def uvw(self):
-        return self._f['uvw'].value
+        return self._f['uvw'][()]
 
     @property
     def weight(self):
-        return self._f['weight'].value
+        return self._f['weight'][()]
 
     @property
     def xyz(self):
-        return self._f['xyz'].value
+        return self._f['xyz'][()]

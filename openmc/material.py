@@ -320,10 +320,10 @@ class Material(object):
         """
         mat_id = int(group.name.split('/')[-1].lstrip('material '))
 
-        name = group['name'].value.decode() if 'name' in group else ''
-        density = group['atom_density'].value
+        name = group['name'][()].decode() if 'name' in group else ''
+        density = group['atom_density'][()]
         nuc_densities = group['nuclide_densities'][...]
-        nuclides = group['nuclides'].value
+        nuclides = group['nuclides'][()]
 
         # Create the Material
         material = cls(mat_id, name)
@@ -331,7 +331,7 @@ class Material(object):
 
         # Read the names of the S(a,b) tables for this Material and add them
         if 'sab_names' in group:
-            sab_tables = group['sab_names'].value
+            sab_tables = group['sab_names'][()]
             for sab_table in sab_tables:
                 name = sab_table.decode()
                 material.add_s_alpha_beta(name)

@@ -281,7 +281,7 @@ class Tally(object):
 
             # Extract Tally data from the file
             data = f['tallies/tally {0}/results'.format(
-                self.id)].value
+                self.id)]
             sum = data[:,:,0]
             sum_sq = data[:,:,1]
 

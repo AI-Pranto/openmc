@@ -79,13 +79,13 @@ class Sensitivity(object):
     def from_hdf5(cls, group):
         sid = int(group.name.split('/')[-1].lstrip('sensitivity '))
         data = cls(sid)
-        data.energies = group['energies'].value
-        data.nuclides = [i.decode() for i in group['nuclides'].value]
-        data.scores = [i.decode() for i in group['scores'].value]
-        data.n_realizations = group['n_realizations'].value
-        mesh_id = group['mesh_id'].value
+        data.energies = group['energies'][()]
+        data.nuclides = [i.decode() for i in group['nuclides'][()]]
+        data.scores = [i.decode() for i in group['scores'][()]]
+        data.n_realizations = group['n_realizations'][()]
+        mesh_id = group['mesh_id'][()]
         data.mesh = openmc.Mesh.from_hdf5(group.parent['mesh {}'.format(mesh_id)])
-        data._results = group['results'].value
+        data._results = group['results'][()]
         return data
 
     def get_pandas_dataframe(self):

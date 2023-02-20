@@ -56,7 +56,7 @@ _THERMAL_NAMES = {
     'c_para_H': ('parah', 'hpara'),
     'c_U_in_UO2': ('uuo2', 'u-o2', 'u/o2'),
     'c_Y_in_YH2': ('yyh2',),
-    'c_Zr_in_ZrH': ('zrzrh', 'zr-h', 'zr/h')
+    'c_Zr_in_ZrH': ('zrzrh', 'zr-zrh', 'zr-h', 'zr/h', 'zr(zrh)')
 }
 
 
